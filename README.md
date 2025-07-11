@@ -1,4 +1,4 @@
-# training_java_unfolding_maps
+# 1. UnfoldingMaps
 
 Requires Eclipse and java8.
 
