@@ -10,7 +10,7 @@ import processing.core.PGraphics;
  *
  */
 // TODO: Implement the comparable interface
-public abstract class EarthquakeMarker extends CommonMarker
+public abstract class EarthquakeMarker extends CommonMarker implements Comparable<EarthquakeMarker>
 {
 	
 	// Did the earthquake occur on land?  This will be set by the subclasses.
@@ -41,8 +41,10 @@ public abstract class EarthquakeMarker extends CommonMarker
 	
 	// abstract method implemented in derived classes
 	public abstract void drawEarthquake(PGraphics pg, float x, float y);
+	public abstract void drawThreat(PGraphics pg, float x, float y, float threatCircle);
+
 		
-	
+
 	// constructor
 	public EarthquakeMarker (PointFeature feature) 
 	{
@@ -50,13 +52,22 @@ public abstract class EarthquakeMarker extends CommonMarker
 		// Add a radius property and then set the properties
 		java.util.HashMap<String, Object> properties = feature.getProperties();
 		float magnitude = Float.parseFloat(properties.get("magnitude").toString());
-		properties.put("radius", 2*magnitude );
+		properties.put("radius", 3*magnitude );
 		setProperties(properties);
 		this.radius = 1.75f*getMagnitude();
 	}
 	
 	// TODO: Add the method:
-	// public int compareTo(EarthquakeMarker marker)
+	// for some reason i couldn't make it work the other way, so reversed it later
+	public int compareTo(EarthquakeMarker marker){
+		 if(this.getMagnitude() < marker.getMagnitude())
+			 return -1;
+		 else if(this.getMagnitude() > marker.getMagnitude())
+			 return 1;
+		 else
+			 return 0;
+		 
+	 } 
 	
 	
 	// calls abstract method drawEarthquake and then checks age and draws X if needed
@@ -70,6 +81,10 @@ public abstract class EarthquakeMarker extends CommonMarker
 		
 		// call abstract method implemented in child class to draw marker shape
 		drawEarthquake(pg, x, y);
+		float threatCircle = (float) threatCircle();
+		PGraphics pg2 = pg;
+		pg2.noFill();
+		drawThreat(pg2, x, y, threatCircle);
 		
 		// IMPLEMENT: add X over marker if within past day		
 		String age = getStringProperty("age");
@@ -92,6 +107,7 @@ public abstract class EarthquakeMarker extends CommonMarker
 		pg.popStyle();
 		
 	}
+
 
 	/** Show the title of the earthquake if this marker is selected */
 	public void showTitle(PGraphics pg, float x, float y)
