@@ -33,6 +33,11 @@ public class LandQuakeMarker extends EarthquakeMarker {
 		
 	}
 	
+	@Override
+	public void drawThreat(PGraphics pg, float x, float y, float threatRadius) {
+		pg.ellipse(x, y, 2*threatRadius, 2*threatRadius);
+	}
+	
 
 	// Get the country the earthquake is in
 	public String getCountry() {
