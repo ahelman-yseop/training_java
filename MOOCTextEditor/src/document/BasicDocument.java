@@ -17,6 +17,15 @@ public class BasicDocument extends Document
 		super(text);
 	}
 	
+	/**
+	 * Extracts words from a text.
+	 * @return list of all words found.
+	 */
+	protected List<String> getWords() {
+	    String wordPattern = "[a-zA-Z]+"; 
+	    return getTokens(wordPattern);
+	}
+
 	
 	/**
 	 * Get the number of words in the document.
@@ -34,9 +43,8 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumWords()
 	{
-		//TODO: Implement this method in week 2 according to the comments above.  
-		// See the Module 2 support videos if you need help.
-	    return 0;
+		// Week 2 assignment.
+	    return getWords().size();
 	}
 	
 	/**
@@ -54,9 +62,10 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSentences()
 	{
-	    //TODO: Implement this method.  See the Module 2 support videos 
-        // if you need help.
-        return 0;
+		// Week 2 assignment.
+		String sentencePattern = "[^.!?]+";
+		List<String> numSentences = getTokens(sentencePattern);
+	    return numSentences.size();
 	}
 	
 	/**
@@ -76,12 +85,14 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSyllables()
 	{
-	    //TODO: Implement this method in week 2.  See the Module 2 support videos 
-        // if you need help.  And note that there is no need to use a regular
-		// expression for the syllable counting.  We recommend you implement 
-		// the helper function countSyllables in Document.java using a loop, 
-		// and then call it here on each word.
-        return 0;
+	    // Week 2 assignment.
+		int numSyllables = 0;
+	    
+	    for (String word : getWords()) {
+	    	numSyllables += countSyllables(word);
+	    }
+	    
+	    return numSyllables;
 	}
 	
 	
