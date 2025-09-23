@@ -30,11 +30,6 @@ public class OceanQuakeMarker extends EarthquakeMarker {
 	}
 	
 
+	
 
-	@Override
-	public void drawThreat(PGraphics pg, float x, float y, float threatCircle) {
-		// TODO Auto-generated method stub
-		pg.rect(x-threatCircle, y-threatCircle, 2*threatCircle, 2*threatCircle);
-		
-	}
 }

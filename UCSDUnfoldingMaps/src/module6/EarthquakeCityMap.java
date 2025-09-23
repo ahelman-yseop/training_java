@@ -2,7 +2,6 @@ package module6;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -22,8 +21,8 @@ import processing.core.PApplet;
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
  * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Agathe Helman
- * Date: July 17, 2025
+ * @author Your name here
+ * Date: July 17, 2015
  * */
 public class EarthquakeCityMap extends PApplet {
 	
@@ -86,7 +85,7 @@ public class EarthquakeCityMap extends PApplet {
 		//earthquakesURL = "test2.atom";
 		
 		// Uncomment this line to take the quiz
-		earthquakesURL = "quiz2.atom";
+		//earthquakesURL = "quiz2.atom";
 		
 		
 		// (2) Reading in earthquake data and geometric properties
@@ -124,10 +123,6 @@ public class EarthquakeCityMap extends PApplet {
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
-		map.addMarkers(countryMarkers);
-
-	    //sortAndPrint(quakeMarkers.size()-1);
-	    sortAndPrint(20);
 	    
 	    
 	}  // End setup
@@ -144,18 +139,6 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO: Add the method:
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
-	private void sortAndPrint(int numToPrint) {
-			Object[] m=quakeMarkers.toArray();
-			Arrays.sort(m,Collections.reverseOrder());
-			if(numToPrint>m.length){
-				for(int i=0;i<=m.length;i++)
-					System.out.println(m[i]);
-			}
-			else {
-				for(int i=0;i<=numToPrint;i++)
-					System.out.println(m[i]);
-			}
-	}
 	
 	/** Event handler that gets called automatically when the 
 	 * mouse moves.
@@ -171,7 +154,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		selectMarkerIfHover(quakeMarkers);
 		selectMarkerIfHover(cityMarkers);
-
 		//loop();
 	}
 	
@@ -391,7 +373,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		System.out.println("OCEAN QUAKES: " + totalWaterQuakes);
 	}
-	
 	
 	
 	
