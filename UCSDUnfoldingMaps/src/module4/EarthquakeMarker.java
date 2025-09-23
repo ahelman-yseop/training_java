@@ -18,8 +18,9 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 
 	// SimplePointMarker has a field "radius" which is inherited
 	// by Earthquake marker:
-	// protected float radius;
-	//
+	protected float radius;
+	
+	
 	// You will want to set this in the constructor, either
 	// using the thresholds below, or a continuous function
 	// based on magnitude. 
@@ -81,6 +82,17 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 	// You might find the getters below helpful.
 	private void colorDetermine(PGraphics pg) {
 		//TODO: Implement this method
+		float depth = getDepth();
+		
+		if (depth < THRESHOLD_INTERMEDIATE) {
+			pg.fill(255, 255, 0);
+		}
+		else if (depth < THRESHOLD_DEEP) {
+			pg.fill(0, 0, 255);
+		}
+		else {
+			pg.fill(255, 0, 0);
+		}
 	}
 	
 	
