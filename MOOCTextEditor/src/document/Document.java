@@ -64,10 +64,42 @@ public abstract class Document {
 	 */
 	protected int countSyllables(String word)
 	{
-		// TODO: Implement this method so that you can call it from the 
-	    // getNumSyllables method in BasicDocument (module 2) and 
-	    // EfficientDocument (module 3).
-	    return 0;
+		// Week 2 assignment. 
+		// called  from the getNumSyllables method in BasicDocument (module 2) 
+		// and EfficientDocument (module 3).
+		
+		// format word to lower case to avoid dealing with any upper case letter while counting
+        word = word.toLowerCase();
+        
+		String vowels = "aeiouy";
+		boolean lastWasVowel = false;
+        int sylCount = 0;
+		
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            
+            // if c is a vowel
+            if (vowels.indexOf(c) != -1) { 
+            	// a syllable counts at least a vowel
+            	// but we don't want to count 2 syllables for double vowels for example
+                if (!lastWasVowel) {
+                    sylCount++;
+                    lastWasVowel = true;
+                }
+            } else {
+                lastWasVowel = false;
+            }
+        }
+        
+        // special case for words ending with 'e'
+        // "like" "make" ... ==> 2 vowels, only 1 syllable 
+        // remove a syllable in the count to have a more accurate result
+        if (word.endsWith("e") && sylCount > 1) {
+            sylCount--;
+        }
+        
+		return sylCount;
+		
 	}
 	
 	/** A method for testing
@@ -130,9 +162,21 @@ public abstract class Document {
 	/** return the Flesch readability score of this document */
 	public double getFleschScore()
 	{
-	    // TODO: You will play with this method in week 1, and 
-		// then implement it in week 2
-	    return 0.0;
+	    // Week 2 assignment.
+		int numWords = getNumWords();
+	    int numSentences = getNumSentences();
+	    int numSyllables = getNumSyllables();
+	    
+	    // avoid division by 0
+	    if (numWords == 0 || numSentences == 0) {
+	        return 0.0;
+	    }
+	    
+	    double wordsPerSentence = (double) numWords / numSentences;
+	    double syllablesPerWord = (double) numSyllables / numWords;
+
+	    // Flesh Score
+	    return 206.835 - 1.015 * wordsPerSentence - 84.6 * syllablesPerWord;
 	}
 	
 	
