@@ -34,31 +34,43 @@ public class DocumentBenchmarking {
 		// You can play around with this.
 		int start = 50000;
 		
-		// TODO: Fill in the rest of this method so that it runs two loops
-		// and prints out timing results as described in the assignment 
-		// instructions and following the pseudocode below.
+		// Week 3 assignment.
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
 				numToCheck += increment)
 		{
 			// numToCheck holds the number of characters that you should read from the 
-			// file to create both a BasicDocument and an EfficientDocument.  
+			// file to create both a BasicDocument and an EfficientDocument.
 			
-			/* Each time through this loop you should:
-			 * 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
-			 * 2. Read numToCheck characters from the file into a String
-			 *     Hint: use the helper method below.
-			 * 3. Time a loop that runs trials times (trials is the variable above) that:
-			 *     a. Creates a BasicDocument 
-			 *     b. Calls fleshScore on this document
-			 * 4. Print out the time it took to complete the loop in step 3 
-			 *      (on the same line as the first print statement) followed by a tab (\t)
-			 * 5. Time a loop that runs trials times (trials is the variable above) that:
-			 *     a. Creates an EfficientDocument 
-			 *     b. Calls fleshScore on this document
-			 * 6. Print out the time it took to complete the loop in step 5 
-			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
-			 
+			// Step 1 - Print out numToCheck
+			System.out.print(numToCheck + "\t"); 
+			
+			// Step 2 - Read numToCheck characters from the file into a String
+	        String text = getStringFromFile(textfile, numToCheck);
+	        
+	        // Step 3: Time BasicDocument
+	        long startTimeBasic = System.nanoTime();
+	        for (int i = 0; i < trials; i++) {
+	            BasicDocument doc = new BasicDocument(text);
+	            doc.getFleschScore();
+	        }
+	        long endTimeBasic = System.nanoTime();
+	        double durationBasic = (endTimeBasic - startTimeBasic) / 1_000_000_000.0;
+	        
+	        // Step 4 - Print out the time it took to complete the loop in step 3 
+	        System.out.print(durationBasic + "\t");
+	        
+	        // Step 5: Time EfficientDocument
+	        long startTimeEff = System.nanoTime();
+	        for (int i = 0; i < trials; i++) {
+	            EfficientDocument doc = new EfficientDocument(text);
+	            doc.getFleschScore();
+	        }
+	        long endTimeEff = System.nanoTime();
+	        double durationEff = (endTimeEff - startTimeEff) / 1_000_000_000.0;
+
+	        // Step 6 - Print out the time it took to complete the loop in step 5
+	        System.out.println(durationEff);
+			
 		}
 	
 	}

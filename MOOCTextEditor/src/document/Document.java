@@ -62,44 +62,69 @@ public abstract class Document {
 	 *       is not considered a syllable unless the word has no other syllables. 
 	 *       You should consider y a vowel.
 	 */
-	protected int countSyllables(String word)
+//	protected int countSyllables(String word)
+//	{
+//		// Week 2 assignment. 
+//		// called  from the getNumSyllables method in BasicDocument (module 2) 
+//		// and EfficientDocument (module 3).
+//		
+//		// format word to lower case to avoid dealing with any upper case letter while counting
+//        word = word.toLowerCase();
+//        
+//		String vowels = "aeiouy";
+//		boolean lastWasVowel = false;
+//        int sylCount = 0;
+//		
+//        for (int i = 0; i < word.length(); i++) {
+//            char c = word.charAt(i);
+//            
+//            // if c is a vowel
+//            if (vowels.indexOf(c) != -1) { 
+//            	// a syllable counts at least a vowel
+//            	// but we don't want to count 2 syllables for double vowels for example
+//                if (!lastWasVowel) {
+//                    sylCount++;
+//                    lastWasVowel = true;
+//                }
+//            } else {
+//                lastWasVowel = false;
+//            }
+//        }
+//        
+//        // special case for words ending with 'e'
+//        // "like" "make" ... ==> 2 vowels, only 1 syllable 
+//        // remove a syllable in the count to have a more accurate result
+//        if (word.endsWith("e") && sylCount > 1) {
+//            sylCount--;
+//        }
+//        
+//		return sylCount;
+//		
+//	}
+	// coursera solution
+	protected static int countSyllables(String word)
 	{
-		// Week 2 assignment. 
-		// called  from the getNumSyllables method in BasicDocument (module 2) 
-		// and EfficientDocument (module 3).
-		
-		// format word to lower case to avoid dealing with any upper case letter while counting
-        word = word.toLowerCase();
-        
+	    //System.out.print("Counting syllables in " + word + "...");
+		int numSyllables = 0;
+		boolean newSyllable = true;
 		String vowels = "aeiouy";
-		boolean lastWasVowel = false;
-        int sylCount = 0;
-		
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
-            
-            // if c is a vowel
-            if (vowels.indexOf(c) != -1) { 
-            	// a syllable counts at least a vowel
-            	// but we don't want to count 2 syllables for double vowels for example
-                if (!lastWasVowel) {
-                    sylCount++;
-                    lastWasVowel = true;
-                }
-            } else {
-                lastWasVowel = false;
+		char[] cArray = word.toCharArray();
+		for (int i = 0; i < cArray.length; i++)
+		{
+		    if (i == cArray.length-1 && Character.toLowerCase(cArray[i]) == 'e' 
+		    		&& newSyllable && numSyllables > 0) {
+                numSyllables--;
             }
-        }
-        
-        // special case for words ending with 'e'
-        // "like" "make" ... ==> 2 vowels, only 1 syllable 
-        // remove a syllable in the count to have a more accurate result
-        if (word.endsWith("e") && sylCount > 1) {
-            sylCount--;
-        }
-        
-		return sylCount;
-		
+		    if (newSyllable && vowels.indexOf(Character.toLowerCase(cArray[i])) >= 0) {
+				newSyllable = false;
+				numSyllables++;
+			}
+			else if (vowels.indexOf(Character.toLowerCase(cArray[i])) < 0) {
+				newSyllable = true;
+			}
+		}
+		//System.out.println( "found " + numSyllables);
+		return numSyllables;
 	}
 	
 	/** A method for testing

@@ -47,13 +47,28 @@ public class EfficientDocument extends Document {
 	{
 		// Call getTokens on the text to preserve separate strings that are 
 		// either words or sentence-ending punctuation.  Ignore everything
-		// That is not a word or a sentence-ending puctuation.
+		// That is not a word or a sentence-ending punctuation.
 		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
 		// OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
 		
-		// TODO: Finish this method.  Remember the countSyllables method from 
-		// Document.  That will come in handy here.  isWord defined above will also help.
+		// Week 3 assignment.
+		numWords = 0;
+		numSentences = 0;
+		numSyllables = 0;
+		for (int i = 0; i < tokens.size(); i++) {
+			String token = tokens.get(i);
+			if (isWord(token)) {
+				numWords++;
+		        numSyllables += countSyllables(token);
+		         
+		        if (i == tokens.size() - 1) {
+		        	numSentences++;
+		        }
+		    } else {
+		    	numSentences++;
+		    }
+		}
 	}
 
 	
@@ -72,8 +87,8 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		//TODO: write this method.  Hint: It's simple
-		return 0;
+		// Week 3 assignment.
+		return numSentences;
 	}
 
 	
@@ -93,8 +108,8 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-		//TODO: write this method.  Hint: It's simple
-	    return 0;
+		// Week 3 assignment.
+	    return numWords;
 	}
 
 
@@ -115,8 +130,8 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-        //TODO: write this method.  Hint: It's simple
-        return 0;
+		// Week 3 assignment.
+        return numSyllables;
 	}
 	
 	// Can be used for testing
