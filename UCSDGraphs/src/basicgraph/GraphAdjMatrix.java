@@ -104,9 +104,25 @@ public class GraphAdjMatrix extends Graph {
 	 * @return List<Integer> a list of indices of vertices.  
 	 */	
 	public List<Integer> getDistance2(int v) {
-		// XXX Implement this method in week 2
-		return null;
+		// Week 2 assignment
+		List<Integer> twoHops = new ArrayList<>();
+	    int n = adjMatrix.length;
+
+	    for (int i = 0; i < n; i++) {
+	    	// If i is a direct neighbor of v (1st hop)
+	        if (adjMatrix[v][i] > 0) {
+	            for (int j = 0; j < n; j++) {
+	                // If j is a direct neighbor of i (2nd hop)
+	                if (adjMatrix[i][j] > 0) {
+	                    twoHops.add(j);
+	                }
+	            }
+	        }
+	    }
+
+	    return twoHops;	
 	}
+	
 	
 	/**
 	 * Generate string representation of adjacency matrix
