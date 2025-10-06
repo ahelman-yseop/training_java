@@ -1,7 +1,9 @@
 package basicgraph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,10 +123,25 @@ public abstract class Graph {
 	 * @return The degree sequence of this graph.
 	 */
 	public List<Integer> degreeSequence() {
-		// XXX: Implement in part 1 of week 2
-		return null;
+		// Week 2 assignment
+		
+	    List<Integer> degrees = new ArrayList<>(Collections.nCopies(getNumVertices(), 0));
+
+	    // For every vertex u, add 1 to its out-degree
+	    // and 1 to each destination's in-degree.
+	    for (int u = 0; u < getNumVertices(); u++) {
+		    for (int v : getNeighbors(u)) {
+		    	degrees.set(u, degrees.get(u) + 1);   // outgoing edge
+	            degrees.set(v, degrees.get(v) + 1);   // incoming edge
+		    }   
+	    }
+
+	    degrees.sort(Comparator.reverseOrder());
+	    
+	    return degrees;
 	}
 	
+	    
 	/**
 	 * Get all the vertices that are 2 away from the vertex in question.
 	 * @param v The starting vertex
