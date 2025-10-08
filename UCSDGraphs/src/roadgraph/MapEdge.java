@@ -21,7 +21,7 @@ public class MapEdge {
      * @param length 	Length of the road
      */
     public MapEdge(GeographicPoint start, GeographicPoint end, String roadName, String roadType, 
-    																				double length) {
+    				double length) {
         this.start = start;
         this.end = end;
         this.length = length;
